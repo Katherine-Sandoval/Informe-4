@@ -1,0 +1,45 @@
+char sentido = 'S'; 
+int posicionY = 100; 
+int altura = 0; 
+byte paso = 4; 
+ 
+void setup() {
+  size(100, 200);
+  background (0);
+  noStroke();
+  fill( random(255), random(255), random(255), random(255));
+}
+ 
+void draw() {
+  background (0); 
+  rect (10, posicionY, 80, altura);
+} 
+ 
+
+void mouseWheel(MouseEvent evento) {
+  float giro = evento.getCount();
+  if (sentido == 'S'){ 
+    if (giro < 0) { 
+      if (posicionY > 10){
+        posicionY -= paso;
+        altura = 100 - posicionY;
+      }
+    } else { 
+      if (posicionY < 100){
+        posicionY += paso;
+        altura = 100 - posicionY;
+      } else {
+        posicionY = 100;
+        altura = 0;
+        sentido = 'B';
+      }
+    }
+  } else { 
+    if (giro < 0) { 
+      if (altura > 0) altura -= paso;
+      if (altura == 0) sentido = 'S';
+    } else { 
+      if (altura < 90) altura += paso;
+    }
+  }
+}
